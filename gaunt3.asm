@@ -1,6 +1,6 @@
-%include "tniasm.inc"
-%include "z80r800.inc"
-%include "z80().inc"
+; %include "tniasm.inc"
+; %include "z80r800.inc"
+; %include "z80().inc"
 
 PrintDigit:     equ     0B6D9h
 MainLoop:       equ     0b258h
@@ -36,7 +36,8 @@ RowKeyb:        equ     847Fh
 ;;; a todas las paginas (pociones, jamon y todo eso
 ;;; La funcion que hace el cambio de patrones es LdirPat
 
-        %outfile   "gaunt.bin",0
+        ;%outfile   "gaunt.bin",0
+        fname      "gaunt.bin",0
         forg    0
         db      0feh
         dw      8000h
@@ -523,7 +524,7 @@ EnableSCR:
         sub     a
         rr      c
         jr      nc,SB693_p        ;[0B693h]
-        ld      a,cbh           ;'p'
+        ld      a,0cbh           ;'p'
 
 SB693_p:
         jp      SB693
@@ -834,7 +835,7 @@ VecIntP:
         ld      (RefreshScrD),a
 .oui:
         call    ControlSound    ;Quitar el salvar registros
-        ld      a,bh
+        ld      a,0bh
         call    set_cfondo
         pop     bc
         pop     hl
@@ -946,7 +947,7 @@ ENASLT_0:
         or      d
 ;;;                             ; a -> configuration to put page 3 in slot
 ;;;                             ;parameter
-        out     (a8h),a         ; Put page 3 in same slot that 0 will be
+        out     (0a8h),a         ; Put page 3 in same slot that 0 will be
         ld      a,(0ffffh)
         cpl
         ld      c,a             ; c original value of -1 of slot para
@@ -966,7 +967,7 @@ ENASLT_0:
         ld      a,e
         and     03h
         or      h
-        out     (a8h),a
+        out     (0a8h),a
         ret
 
 
@@ -1369,34 +1370,34 @@ MakeColorWall:
         ld      c,0             ; Default colors are black
         ld      a,(hl)          ; Load the colour wall byte
         and     0Fh             ; and get the lower nibble
-        jr      z,.280          ; if colour is 0, then load 1st color (0)
+        jr      z,WallSM_NH_L.280 ; if colour is 0, then load 1st color (0)
 
 
         cp      7               ; If color is 4 then load the 2nd color (15)
         ld      a,c             ;
-        jr      z,.281          ;
+        jr      z,WallSM_NH_L.281 ;
 
-WallSM_NL_H
+WallSM_NL_H:
         or      0eh
-        jr      .282
+        jr      WallSM_NH_L.282
 
-WallSM_NH_L
+WallSM_NH_L:
 .281:   or      0fh
 .282:   ld      c,a
 
 
 .280:   ld      a,(hl)
         and     0F0h
-        jr      z,.283
+        jr      z,WallSM_NL_L.283
         cp      70h
         ld      a,c
-        jr      z,.284
+        jr      z,WallSM_NL_L.284
 
-WallSM_NH_H
+WallSM_NH_H:
         or      0f0h
-        jr      .285
+        jr      WallSM_NL_L.285
 
-WallSM_NL_L
+WallSM_NL_L:
 .284:   or      0e0h
 .285:   ld      c,a
 .283:   ld      a,c
