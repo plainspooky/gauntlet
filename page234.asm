@@ -1,13 +1,13 @@
 
 
 
-p2size  equ     p2end-p2load
-p2padd  equ     3*pagsize-p2size
-p2sizeT equ     p2endf-p2load
+p2size:  equ     p2end-p2load
+p2padd:  equ     3*pagsize-p2size
+p2sizeT: equ     p2endf-p2load
 
 
 
-section code
+; section code
 
 org     p2load
 
@@ -19,10 +19,10 @@ gtitle: equ $
 music:
 	incbin "gauntlet.mcm"
 	
-%include        "mcdrv.asm"
-%include	"pt3.asm"	
+include        "mcdrv.asm"
+include	"pt3.asm"	
 
-section         code
+; section         code
 isrsound:
 	ld	a,(playingsong)
 	or 	a
@@ -85,9 +85,9 @@ initmusic:
 p2end:          ds      p2padd,0
 p2endf:         equ $
 
-%if p2size > pagsize*3
-   %warn "Page 234 boundary broken"
-%endif
+;if p2size > pagsize*3
+;   %warn "Page 234 boundary broken"
+;endif
 
 
 

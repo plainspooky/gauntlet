@@ -73,7 +73,7 @@ Init:
         db    "Made by TNI 2012"
 
 include "sys.asm"
-include "gaunt1.asm"
+include "gaunt1_.asm"
 include "aamsx.asm"
 
 musicpt3:
@@ -85,6 +85,6 @@ musicpt3:
 p1end:  ds      p1padd,0
 p1endf:         equ $
 
-%if p1size > pagsize
-   %warn "Page 0 boundary broken"
-%endif
+if p1size > pagsize
+   warn "Page 0 boundary broken"
+endif

@@ -1,16 +1,16 @@
-p5size  equ     p5end-p5load
-p5padd  equ     16*pagsize-p5size
-p5sizeT equ     p5endf-p5load
+p5size:  equ     p5end-p5load
+p5padd:  equ     16*pagsize-p5size
+p5sizeT: equ     p5endf-p5load
 
 
 
-section code
+; section code
 
 org     p5load
 
 
 
-section         code
+; section         code
 
 warspr:
 incbin  "war1.spr"
@@ -93,7 +93,7 @@ incbin  "maze/maze30",7
 p5end:          ds      p5padd,0
 p5endf:         equ $
 
-%if p5size > pagsize*16
-   %warn "Page 9-16 boundary broken"
-%endif
+if p5size > pagsize*16
+   warn "Page 9-16 boundary broken"
+endif
 

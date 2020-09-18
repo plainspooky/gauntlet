@@ -1,5 +1,5 @@
 
-section         code
+; section         code
 MCDRV:				; ...
 		jp	IntFunct
 
@@ -496,10 +496,10 @@ DetectMSXMUSIC:
 .TxtAPRL: db     "APRL"
 .TxtOPLL: db     "OPLL"
 
-section rdata
+; section rdata
 SearchTemp:     rb      1
 FMSlot: 	rb      1
-section code	
+; section code	
 	
 
 
@@ -2259,7 +2259,7 @@ REL_TableMinc:	dw 0
 
 End_REL:      equ $
 
-section          rdata
+; section          rdata
 
 Start_RAM:    equ   $
 
@@ -2294,4 +2294,4 @@ Table_fmins:  equ   REL_Table_fmins - Start_REL + Start_RAM
 Table_SFX:    equ   REL_Table_SFX - Start_REL + Start_RAM
 TableMinc:    equ   REL_TableMinc - Start_REL + Start_RAM
 Tlast_FM:     equ   REL_Tlast_FM - Start_REL + Start_RAM
-section code
+; section code

@@ -95,7 +95,7 @@ selectP2:
         ld      a,1
         ld      (copyline+3),a
         call    selectP1
-        ld      (0fffe),a
+        ld      (0fffeh),a
         ret
 
 
@@ -1072,7 +1072,7 @@ InitVDP:
 
 	ld	l,0
 	ld	de,0
-	ld	4000h
+	ld	bc,4000h
 	ld	a,7
 	call	svram
 
@@ -1429,7 +1429,7 @@ LEE_JOY:
 ;     de = destination
 ; changes: af,af',bc,de,hl,ix
 
-UnTCF:: ld      ix,-1           ; last_m_off
+UnTCF:  ld      ix,-1           ; last_m_off
 
         ld      a,[hl]          ; read first byte
         inc     hl
@@ -1757,7 +1757,7 @@ datab:  equ     $
 
 hmmc_sh:  db     0,0,0,0
         db     0,1,0,3
-        db     0,0,F0h
+        db     0,0,0F0h
 
 
 COOR_XY_sh:

@@ -1,4 +1,4 @@
-section code
+; section code
 
 
 MSXPalet:

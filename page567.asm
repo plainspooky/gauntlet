@@ -1,13 +1,13 @@
 
 
 
-p3size  equ     p3end-p3load
-p3padd  equ     3*pagsize-p3size
-p3sizeT equ     p3endf-p3load
+p3size:  equ     p3end-p3load
+p3padd:  equ     3*pagsize-p3size
+p3sizeT: equ     p3endf-p3load
 
 
 
-section code
+; section code
 
 org     p3load
 
@@ -22,12 +22,12 @@ gaunt.3: equ $
 gaunt.4: equ $
 
 
-section         code
+; section         code
 
 p3end:          ds      p3padd,0
 p3endf:         equ $
 
-%if p3size > pagsize*3
-   %warn "Page 567 boundary broken"
-%endif
+if p3size > pagsize*3
+   warn "Page 567 boundary broken"
+endif
 

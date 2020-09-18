@@ -63,48 +63,48 @@ ROUT_A0:	; --- FIXES BITS 6 AND 7 OF MIXER ---
 ;; <SapphiRe-MSX> y luego el call ayFX_PLAY
 
 
-CHNPRM_PsInOr	equ 0	;RESB 1
-CHNPRM_PsInSm	equ 1	;RESB 1
-CHNPRM_CrAmSl	equ 2	;RESB 1
-CHNPRM_CrNsSl	equ 3	;RESB 1
-CHNPRM_CrEnSl	equ 4	;RESB 1
-CHNPRM_TSlCnt	equ 5	;RESB 1
-CHNPRM_CrTnSl	equ 6	;RESW 1
-CHNPRM_TnAcc	equ 8	;RESW 1
-CHNPRM_COnOff	equ 10	;RESB 1
+CHNPRM_PsInOr:	equ 0	;RESB 1
+CHNPRM_PsInSm:	equ 1	;RESB 1
+CHNPRM_CrAmSl:	equ 2	;RESB 1
+CHNPRM_CrNsSl:	equ 3	;RESB 1
+CHNPRM_CrEnSl:	equ 4	;RESB 1
+CHNPRM_TSlCnt:	equ 5	;RESB 1
+CHNPRM_CrTnSl:	equ 6	;RESW 1
+CHNPRM_TnAcc:	equ 8	;RESW 1
+CHNPRM_COnOff:	equ 10	;RESB 1
 ;reset group
 
-CHNPRM_OnOffD	equ 11	;RESB 1
+CHNPRM_OnOffD:	equ 11	;RESB 1
 
 ;IX for PTDECOD here (+12)
-CHNPRM_OffOnD	equ 12	;RESB 1
-CHNPRM_OrnPtr	equ 13	;RESW 1
-CHNPRM_SamPtr	equ 15	;RESW 1
-CHNPRM_NNtSkp	equ 17	;RESB 1
-CHNPRM_Note	equ 18	;RESB 1
-CHNPRM_SlToNt	equ 19	;RESB 1
-CHNPRM_Env_En	equ 20	;RESB 1
-CHNPRM_Flags	equ 21	;RESB 1
+CHNPRM_OffOnD:	equ 12	;RESB 1
+CHNPRM_OrnPtr:	equ 13	;RESW 1
+CHNPRM_SamPtr:	equ 15	;RESW 1
+CHNPRM_NNtSkp:	equ 17	;RESB 1
+CHNPRM_Note:	equ 18	;RESB 1
+CHNPRM_SlToNt:	equ 19	;RESB 1
+CHNPRM_Env_En:	equ 20	;RESB 1
+CHNPRM_Flags:	equ 21	;RESB 1
  ;Enabled - 0,SimpleGliss - 2
-CHNPRM_TnSlDl	equ 22	;RESB 1
-CHNPRM_TSlStp	equ 23	;RESW 1
-CHNPRM_TnDelt	equ 25	;RESW 1
-CHNPRM_NtSkCn	equ 27	;RESB 1
-CHNPRM_Volume	equ 28	;RESB 1
-CHNPRM_Size	equ 29	;RESB 1
+CHNPRM_TnSlDl:	equ 22	;RESB 1
+CHNPRM_TSlStp:	equ 23	;RESW 1
+CHNPRM_TnDelt:	equ 25	;RESW 1
+CHNPRM_NtSkCn:	equ 27	;RESB 1
+CHNPRM_Volume:	equ 28	;RESB 1
+CHNPRM_Size:	equ 29	;RESB 1
 ;endstruc
 
 ;struc	AR
-AR_TonA		equ 0	;RESW 1
-AR_TonB		equ 2	;RESW 1
-AR_TonC		equ 4	;RESW 1
-AR_Noise	equ 6	;RESB 1
-AR_Mixer	equ 7	;RESB 1
-AR_AmplA	equ 8	;RESB 1
-AR_AmplB	equ 9	;RESB 1
-AR_AmplC	equ 10	;RESB 1
-AR_Env		equ 11	;RESW 1
-AR_EnvTp	equ 13	;RESB 1
+AR_TonA:		equ 0	;RESW 1
+AR_TonB:		equ 2	;RESW 1
+AR_TonC:		equ 4	;RESW 1
+AR_Noise:	equ 6	;RESB 1
+AR_Mixer:	equ 7	;RESB 1
+AR_AmplA:	equ 8	;RESB 1
+AR_AmplB:	equ 9	;RESB 1
+AR_AmplC:	equ 10	;RESB 1
+AR_Env: 	equ 11	;RESW 1
+AR_EnvTp:	equ 13	;RESB 1
 ;endstruc
 
 
@@ -296,7 +296,7 @@ PD_LP2:		LD A,(BC)
 		JR C,PD_ESAM
 		ADD A,A
 		LD E,A
-		LD HL,((SPCCOMS+0DF20h) % 65536)	; Adapted from original Speccy version (saves 6 bytes)
+		LD HL, ((SPCCOMS+0DF20h) mod 65536)	; Adapted from original Speccy version (saves 6 bytes)
 		ADD HL,DE
 		LD E,(HL)
 		INC HL
@@ -796,7 +796,7 @@ NT_:	;Note table 2 [if you use another in Vortex Tracker II copy it and paste
 	dw 0001Ah,00019h,00017h,00016h,00015h,00014h,00012h,00011h,00010h,0000Fh,0000Eh,0000Dh
 
 
-section rdata
+; section rdata
 		; --- PT3 WORKAREA [self-modifying code patched] ---
 
 PT3_SETUP:		rb	1	;set bit0 to 1, if you want to play without looping
@@ -839,4 +839,4 @@ AYREGS:
 VT_:			rb	14
 EnvBase:		rb	2
 VAR0END:		rb	240
-section code
+; section code

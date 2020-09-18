@@ -1,4 +1,4 @@
-SRC=gauntlet.asm gaunt1.asm page1.asm page234.asm page567.asm AAMSX.COL AAMSX.PAT
+SRC=gauntlet.asm gaunt1_.asm page1.asm page234.asm page567.asm AAMSX.COL AAMSX.PAT
 TCF=select.tcf gtitle.tcf gaunt2.tcf gaunt3.tcf AAMSX.COL AAMSX.PAT
 BIN=tnilogo.rle
 SPR=elf1.spr elf2.spr war1.spr war2.spr val1.spr val2.spr wiz1.spr wiz2.spr hand.spr
@@ -14,8 +14,11 @@ test:	gauntlet.rom
 gauntlet.rom:	$(SRC) $(TCF) $(BIN) maze.bin
 	$(ASM) gauntlet.asm
 
-gaunt1_.asm: gaunt1.asm
-	cpp $< > $@
+gaunt1_.asm: gaunt1.asm # using cpp preprocessor to expand macros
+	cp $< $<.tmp
+	sed {s/"'"/\"\'\"/g} $<.tmp 
+	cpp -P $<.tmp > $@
+	sed {s/\"\'\"/\'/g} $@
 
 gaunt3.tcf: gaunt3.asm gauntlet.3 deps
 	rm -f gaunt3.tmp
@@ -99,6 +102,8 @@ clean:
 	rm -f *.col
 	rm -f tniasm.*
 	rm -f *.spr
+	rm -f gaunt1.asm.tmp
+	rm -f gaunt1_.asm
 	$(MAKE) -C gfx clean
 	$(MAKE) -C dsk clean
 
